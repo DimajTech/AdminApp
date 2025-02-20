@@ -1,1 +1,47 @@
-<p>registration-applications works!</p>
+<div class="container">
+    <h2>Aprobación de Usuarios</h2>
+
+    <div *ngIf="loading" class="loading">
+        Cargando...
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!loading && pendingUsers.length === 0" class="no-users">
+        No hay usuarios pendientes de aprobación.
+    </div>
+
+    <table *ngIf="!loading && pendingUsers.length > 0" class="users-table">
+        <thead>
+            <tr>
+                <!-- <th>ID</th> -->
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of pendingUsers">
+                <!-- <td>{{ user.id }}</td> -->
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td class="actions">
+                    <button 
+                        (click)="changeUserStatus(user, 'accepted')"
+                        class="btn btn-success">
+                        Aprobar
+                    </button>
+                    <button 
+                        (click)="changeUserStatus(user, 'rejected')"
+                        class="btn btn-danger">
+                        Rechazar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
