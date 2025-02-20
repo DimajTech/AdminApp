@@ -1,0 +1,37 @@
+<section class="section-news" id="news">
+    <div class="container">
+        <div class="row">
+            <h2 style="margin-bottom:20px;">Noticias</h2>
+            <div id="add-news-btn">
+                <button [routerLink]="['/createNews']" class="general-button-green" style="margin-bottom:30px;">
+                    + Agregar Noticia
+                </button>
+
+            </div>
+            <br />
+            <br />
+            <div class="row" id="news-container">
+                <div class="col-lg-4 col-md-6 align-self-center mb-90 event_outer col-md-6 wordpress design" *ngFor="let item of news">
+                    <div class="events_item">
+                        <div class="thumb">
+
+                            <a [routerLink]="['/news', item.id]">
+                                <img src="{{item.picture}}" alt="">
+                            </a>
+                            
+                            <span class="category">{{item.date}}</span>
+                        </div>
+                        <div class="down-content">
+                            <span class="author">{{item.authorName}}</span>
+                            <h5>{{item.title}}</h5>
+                            <br/>
+                            <h6 style="font-weight: 300;">
+                                {{item.description.length > 80 ? item.description.substring(0, item.description.lastIndexOf(' ', 80)) + "..." : item.description}}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

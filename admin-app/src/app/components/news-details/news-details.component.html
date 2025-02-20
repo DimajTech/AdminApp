@@ -1,0 +1,15 @@
+<div class="section-news" *ngIf="news">
+    <button [routerLink]="'/news'" class="general-button">
+        ← Volver
+    </button>
+
+    <img src="{{news.picture}}" alt="" style="border-radius: 33px; padding-top:20px; padding-bottom:20px" id="img-news-detail">
+    <h2 id="title-news-detail">{{news.title}}</h2>
+    <p id="autor-news-detail">{{news.authorName}} ({{news.authorRole}})</p>
+    <p id="date-news-detail">{{news.date}}</p>
+    <p id="description-news-detail" style="text-align:justify; border-radius: 33px; padding-top:20px; padding-bottom:20px; white-space: pre-line;">
+        {{news.description}}
+    </p>
+    <div id="commentsContainer"></div>
+
+</div>
