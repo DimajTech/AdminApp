@@ -24,13 +24,29 @@ constructor(private http:HttpClient) { }
     return this.http.get(ADMIN_API_URL+ 'pieceOfNews/getPieceOfNewsDetailById/' + id, HTTP_OPTIONS);
   }
 
-  changeUserStatus(id: string, status: string): Observable<any>{
-    const body = {
-      status: status
-    };
-    return this.http.patch<any>(ADMIN_API_URL + 'user/changeUserStatus/' + id, status, HTTP_OPTIONS);
+  addNews(newsData: any): Observable<any> {
+    return this.http.post<any>(ADMIN_API_URL + 'pieceOfNews/savePieceOfNews', newsData, HTTP_OPTIONS);
+  }
+  
+  getNewsCommentsById(id: string): Observable<any> {
+    return this.http.get(ADMIN_API_URL+ 'commentNews/getCommentNewsById/' + id, HTTP_OPTIONS);
   }
 
+  getNewsCommentsResponseById(id: string): Observable<any> {
+    return this.http.get(ADMIN_API_URL+ 'commentNewsResponse/getCommentNewsResponseById/' + id, HTTP_OPTIONS);
+  }
+
+  addNewsComment(newsCommentData: any): Observable<any> {
+
+    return this.http.post<any>(ADMIN_API_URL + 'commentNews/saveCommentNews', newsCommentData, HTTP_OPTIONS);
+  }
+  
+  addNewsCommentResponse(newsCommentResponseData: any): Observable<any> {
+
+    console.log(newsCommentResponseData)
+    return this.http.post<any>(ADMIN_API_URL + 'commentNewsResponse/saveCommentNewsResponse', newsCommentResponseData, HTTP_OPTIONS);
+  }
+  
   /*
   
   public getAllEmployee(): Observable<any> {
