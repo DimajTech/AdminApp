@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>Gestión de Cursos</h2>
+    
+    <button class="btn btn-add" (click)="add()">
+      Agregar Curso
+    </button>
+
+    <div class="table-responsive-general">
+      <table class="w3-table-all-general">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Profesor</th>
+            <th>Semestre</th>
+            <th>Año</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses">
+            <td>{{course.code}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.professorName}}</td>
+            <td>{{course.semester}}</td>
+            <td>{{course.year}}</td>
+            <td>
+              {{ course.isActive ? 'Activo' : 'Inactivo' }}
+            </td>
+            <td class="actions">
+              <button class="btn btn-edit" (click)="update(course)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button class="btn btn-delete" (click)="deleteCourse(course)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
