@@ -1,4 +1,4 @@
-<div class="container">
+<div>
     <h2>Aprobación de Usuarios</h2>
 
     <div *ngIf="loading" class="loading">
@@ -13,7 +13,8 @@
         No hay usuarios pendientes de aprobación.
     </div>
 
-    <table *ngIf="!loading && pendingUsers.length > 0" class="users-table">
+    
+    <table *ngIf="!loading && pendingUsers.length > 0" class="w3-table-all-general">
         <thead>
             <tr>
                 <!-- <th>ID</th> -->
@@ -32,12 +33,12 @@
                 <td class="actions">
                     <button 
                         (click)="changeUserStatus(user, 'accepted')"
-                        class="btn btn-success">
+                        class="general-button-green">
                         Aprobar
                     </button>
                     <button 
                         (click)="changeUserStatus(user, 'rejected')"
-                        class="btn btn-danger">
+                        class="general-button-red">
                         Rechazar
                     </button>
                 </td>

@@ -65,20 +65,20 @@ export class CourseFormComponent implements OnInit {
   onSubmit() {
     this.courseService.saveCourse(this.course).subscribe({
       error: (e) => console.error(e),
-      complete: () => this.router.navigate(['/course-list'])
+      complete: () => this.router.navigate(['/courses'])
     });
   }
 
   onDelete() {
     if (this.course.id && confirm('¿Está seguro que desea eliminar este curso?')) {
       this.courseService.deleteCourse(this.course.id).subscribe({
-        next: () => this.router.navigate(['/course-list']),
+        next: () => this.router.navigate(['/courses']),
         error: (e) => console.error(e)
       });
     }
   }
 
   Cancel(){
-    this.router.navigate(['/course-list']);
+    this.router.navigate(['/courses']);
   }
 }

@@ -68,10 +68,10 @@
       </div>
 
       <div class="buttons">
-        <button class="edit-button" [disabled]="!courseForm.form.valid">
+        <button class="general-button-white" [disabled]="!courseForm.form.valid">
           {{ course.id ? 'Actualizar' : 'Guardar' }}
         </button>
-        <button type="button" class="delete-button" (click)="Cancel()">
+        <button type="button" class="general-button-red" (click)="Cancel()">
           Cancelar
         </button>
       </div>

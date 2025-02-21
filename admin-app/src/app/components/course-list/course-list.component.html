@@ -1,7 +1,7 @@
-<div class="container">
-    <h2>Gestión de Cursos</h2>
-    
-    <button class="btn btn-add" (click)="add()">
+<div class="">
+    <h2 style="text-align: center;">Gestión de Cursos</h2>
+    <br>
+    <button class="general-button-green" (click)="add()">
       Agregar Curso
     </button>
 
@@ -29,11 +29,11 @@
               {{ course.isActive ? 'Activo' : 'Inactivo' }}
             </td>
             <td class="actions">
-              <button class="btn btn-edit" (click)="update(course)">
-                <mat-icon>edit</mat-icon>
+              <button class="general-button-green" (click)="update(course)">
+                edit
               </button>
-              <button class="btn btn-delete" (click)="deleteCourse(course)">
-                <mat-icon>delete</mat-icon>
+              <button class="general-button-red" (click)="deleteCourse(course)">
+                delete
               </button>
             </td>
           </tr>

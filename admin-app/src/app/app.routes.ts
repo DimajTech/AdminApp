@@ -12,7 +12,7 @@ export const routes: Routes = [
     {path: 'createNews', component: CreateNewsComponent},
     {path: 'news/:id', component: NewsDetailsComponent},
     {path: '', component: NewsComponent},
-    {path: 'course-list', component: CourseListComponent},
+    {path: 'courses', component: CourseListComponent},
     {path: 'course-form/:id', component: CourseFormComponent},
     {path: 'course-form', component: CourseFormComponent}
 ];

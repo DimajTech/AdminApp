@@ -23,8 +23,6 @@ export class NewsComponent {
       this.service.getAllNews().subscribe({
         next: (news: any) => {
           this.news = news;
-
-          console.log(news)
         },
         error: (err: any) => {
 
