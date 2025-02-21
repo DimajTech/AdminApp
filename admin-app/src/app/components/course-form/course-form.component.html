@@ -1,0 +1,80 @@
+<div class="form-container">
+    <form (ngSubmit)="onSubmit()" #courseForm="ngForm" style="width: 60%;">
+      <div class="form-field">
+        <label>Código</label>
+        <input 
+          type="text" 
+          name="code"
+          [(ngModel)]="course.code"
+          required
+        >
+      </div>
+
+      <div class="form-field">
+        <label>Nombre</label>
+        <input 
+          type="text" 
+          name="name"
+          [(ngModel)]="course.name"
+          required
+        >
+      </div>
+
+      <div class="form-field">
+        <label>Profesor</label>
+        <select 
+          name="professorId"
+          [(ngModel)]="course.professorId"
+          required
+          (change)="onProfessorChange($event)"
+        >
+          <option value="">Seleccione un profesor</option>
+          <option *ngFor="let prof of professors" [value]="prof.id">
+            {{ prof.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Semestre</label>
+        <input 
+          type="text" 
+          name="semester"
+          [(ngModel)]="course.semester"
+          required
+        >
+      </div>
+
+      <div class="form-field">
+        <label>Año</label>
+        <input 
+          type="number" 
+          name="year"
+          [(ngModel)]="course.year"
+          required
+          min="2000"
+        >
+      </div>
+
+      <div class="form-field checkbox">
+        <label>
+          <input 
+            type="checkbox" 
+            name="isActive"
+            [(ngModel)]="course.isActive"
+          >
+          Activo
+        </label>
+      </div>
+
+      <div class="buttons">
+        <button class="edit-button" [disabled]="!courseForm.form.valid">
+          {{ course.id ? 'Actualizar' : 'Guardar' }}
+        </button>
+        <button type="button" class="delete-button" (click)="Cancel()">
+          Cancelar
+        </button>
+      </div>
+      
+    </form>
+</div>
