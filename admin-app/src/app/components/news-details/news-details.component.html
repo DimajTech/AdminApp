@@ -1,0 +1,88 @@
+<div class="section-news" *ngIf="news" style="margin-bottom:150px;">
+    <button [routerLink]="'/news'" class="general-button">
+        ← Volver
+    </button>
+
+    <img src="{{news.picture}}" alt="" style="border-radius: 33px; padding-top:20px; padding-bottom:20px" id="img-news-detail">
+    <h2 id="title-news-detail">{{news.title}}</h2>
+    <p id="autor-news-detail">{{news.authorName}} ({{news.authorRole}})</p>
+    <p id="date-news-detail">{{news.date}}</p>
+    <p id="description-news-detail" style="text-align:justify; border-radius: 33px; padding-top:20px; padding-bottom:20px; white-space: pre-line;">
+        {{news.description}}
+    </p>
+    <!--COMENTARIOS-->
+    <div id="commentsContainer">
+
+        <br><h3>Comentarios</h3>
+        <div class="comment-add-container" id="comment-news-form">
+
+            <textarea id="comment-text-area" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" class="comment-text-area" maxlength="200" rows="4" placeholder="Escribe tu comentario..." required>
+
+            </textarea><br>
+            <button type="submit" id="addCommentBtn" class="general-button-green" (click)="submitCommentNews()">
+                Agregar Comentario
+            </button>
+        </div>
+        <div style="text-align:right; padding-right:10px;">
+            <br> <h6 id= "totalComments"> {{totalComments}} Comentario(s)</h6><br>
+        </div>
+
+        <!--COMENTARIOS 1 A 1-->
+        <div  *ngFor="let comment of newsComments">
+
+            <div class="comment-card">
+
+                <div class="comment-header">
+                    <div>
+                        <span class="comment-user">{{comment.name}}</span>
+                        <span class="comment-role">({{comment.role}})</span>
+                    </div>
+                
+                    <span class="comment-date">{{ formatDate(comment.date) }}</span>
+                </div>
+                <div class="comment-body">
+                    <p>{{comment.text}}</p>
+                </div>
+    
+                <div class="comment-footer">
+    
+                    <div style="display: flex;flex-flow: row;margin-top:10px;">
+                        <p style= "align-content: center;">{{comment.responses?.length || 0}}</p>
+                        <img src="/images/comment-box-icon.png" alt="" style="width: 20px;height: 20px;margin-left: 10px;margin-top:5px;">
+                    </div>
+        
+                    <button class="add-response-btn" (click)="toggleResponseForm(comment)">
+                         {{ comment.showResponseForm ? 'Cancelar' : 'Responder' }}
+                    </button>
+                </div>
+    
+                <div class="comment-add-container"  style="display:block;" *ngIf="comment.showResponseForm">
+                    <textarea [(ngModel)]="commentResponseText" class="comment-text-area" maxlength="200" rows="4" placeholder="Escribe tu respuesta para {{comment.name}}..." required></textarea><br>
+                    
+
+                    <button id="addCommentBtn" class="general-button-green" (click)="submitCommentRespose(comment)">
+                        Agregar Respuesta
+                    </button>
+    
+                </div>
+                
+            </div>
+            
+            <!-- CONTENEDOR DE RESPUESTAS -->
+            <div id="responses">
+                <div class="response-card" *ngFor="let response of comment.responses">
+                    <div class="comment-header">
+                        <div>
+                            <span class="comment-user">{{response.name}}</span>
+                            <span class="comment-role">({{response.role}})</span>
+                        </div>
+                        <span class="comment-date">{{ formatDate(response.date) }}</span>
+                    </div>
+                    <div class="comment-body">
+                        <p>{{response.text}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

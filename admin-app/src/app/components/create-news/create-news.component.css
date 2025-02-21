@@ -1,0 +1,53 @@
+.add-news-content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-self: center !important; 
+    justify-content: center !important; 
+    border-radius: 25px;
+    padding: 80px;
+    background-color: #66c5e3;
+    z-index: 1;
+    width: 90%;
+}
+
+
+#add-news-form input {
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background-color: rgba(249, 235, 255, 0.15);
+    border: none;
+    outline: none;
+    font-weight: 300;
+    padding: 0px 20px;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 3;
+}
+
+    #add-news-form input::placeholder {
+        color: #fff;
+    }
+
+#add-news-form textarea {
+    width: 100%;
+    height: 120px;
+    border-radius: 25px;
+    background-color: rgba(249, 235, 255, 0.15);
+    border: none;
+    outline: none;
+    font-weight: 300;
+    padding: 20px;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 3;
+}
+
+    #add-news-form textarea::placeholder {
+        color: #fff;
+    }
