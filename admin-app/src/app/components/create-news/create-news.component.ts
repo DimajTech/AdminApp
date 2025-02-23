@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import { NewsService } from '../../services/news.service';
 import { FormsModule } from '@angular/forms';
+declare let toastr: any; // Declaramos toastr para que TypeScript no se queje
 
 @Component({
   selector: 'app-create-news',
@@ -50,9 +51,15 @@ export class CreateNewsComponent {
     this.service.addNews(newsData).subscribe({
       next: () => {
         //alert('Noticia agregada con éxito');
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.success('Noticia agregada con éxito');
         this.router.navigate(['/news']);
       },
       error: (err) => {
+
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.error('Ha ocurrido un error agregando la noticia. Intente de nuevo más tarde');
+        
         console.error('Error al agregar noticia', err);
       }
     });

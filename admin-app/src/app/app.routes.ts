@@ -6,13 +6,17 @@ import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news-details/news-details.component';
 import { CreateNewsComponent } from './components/create-news/create-news.component';
 
+import { authGuard } from './auth.guard';
+import { LoginComponent } from './components/login/login.component';
+
 export const routes: Routes = [
-    {path: 'applications', component: RegistrationApplicationsComponent},
-    {path: 'news', component: NewsComponent},
-    {path: 'createNews', component: CreateNewsComponent},
-    {path: 'news/:id', component: NewsDetailsComponent},
-    {path: '', component: NewsComponent},
-    {path: 'courses', component: CourseListComponent},
-    {path: 'course-form/:id', component: CourseFormComponent},
-    {path: 'course-form', component: CourseFormComponent}
+    { path: 'applications', component: RegistrationApplicationsComponent, canActivate: [authGuard] },
+    { path: 'news/:id', component: NewsDetailsComponent, canActivate: [authGuard]},
+    { path: 'news', component: NewsComponent, canActivate: [authGuard] },
+    { path: 'createNews', component: CreateNewsComponent, canActivate: [authGuard] },
+    { path: 'courses', component: CourseListComponent, canActivate: [authGuard] },
+    { path: 'course-form/:id', component: CourseFormComponent, canActivate: [authGuard] },
+    { path: 'course-form', component: CourseFormComponent, canActivate: [authGuard] },
+    { path: 'login', component: LoginComponent },
+    { path: '', component: NewsComponent, canActivate: [authGuard]}
 ];
