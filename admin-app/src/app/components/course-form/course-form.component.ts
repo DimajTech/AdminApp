@@ -63,10 +63,27 @@ export class CourseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.courseService.saveCourse(this.course).subscribe({
-      error: (e) => console.error(e),
-      complete: () => this.router.navigate(['/courses'])
-    });
+    const id = this.activeroute.snapshot.params['id'];
+    if (id){
+      this.courseService.saveCourseInAdmin(this.course).subscribe({
+        next: (course) => {
+          this.updateCourseInProfessor(course)
+          this.updateCourseInStudent(course)
+        },
+        error: (e) => console.error(e),
+        complete: () => this.router.navigate(['/courses'])
+      });
+    }else{
+      this.courseService.saveCourseInAdmin(this.course).subscribe({
+        next: (course) => {
+          this.saveCourseInProfessor(course)
+          this.saveCourseInStudent(course)
+        },
+        error: (e) => console.error(e),
+        complete: () => this.router.navigate(['/courses'])
+      });
+    }
+    
   }
 
   onDelete() {
@@ -81,4 +98,31 @@ export class CourseFormComponent implements OnInit {
   Cancel(){
     this.router.navigate(['/courses']);
   }
+
+  //----------PROFESSOR METHODS----------
+  saveCourseInProfessor(course: Course) {
+    this.courseService.saveCourseInProfessor(course).subscribe({
+      error: (e) => console.error(e),
+    });
+  }
+
+  updateCourseInProfessor(course: Course) {
+    this.courseService.updateCourseInProfessor(course).subscribe({
+      error: (e) => console.error(e),
+    });
+  }
+
+  //----------STUDENT METHODS----------
+  saveCourseInStudent(course: Course) {
+    this.courseService.saveCourseInStudent(course).subscribe({
+      error: (e) => console.error(e)
+    });
+  }
+  
+  updateCourseInStudent(course: Course) {
+    this.courseService.updateCourseInStudent(course).subscribe({
+      error: (e) => console.error(e)
+    });
+  }
+  
 }
