@@ -42,9 +42,14 @@ export class CourseListComponent implements OnInit {
     }).then(async (result: any) => {
       if (result.isConfirmed) {
         try{
-          this.courseService.deleteCourse(course.id!).subscribe(() => {
-            Swal.fire('Eliminado', 'El curso ha sido eliminado exitosamente.', 'success');
-            this.loadCourses();
+          this.courseService.deleteCourse(course.id!).subscribe({
+            next: () => {
+              this.deleteCourseInProfessor(course.id);
+              this.deleteCourseInStudent(course.id);
+              Swal.fire('Eliminado', 'El curso ha sido eliminado exitosamente.', 'success');
+              this.loadCourses();
+            },
+            error: (e) => console.error(e),
           });
         }catch(error){
           console.error('Error deleting course:', error);
@@ -61,5 +66,20 @@ export class CourseListComponent implements OnInit {
 
   update(course: Course){
     this.router.navigate(['/course-form/', course.id]);
+  }
+
+  //----------PROFESSOR METHODS----------
+  deleteCourseInProfessor(id: string | undefined) {
+    this.courseService.deleteCourseInProfessor(id).subscribe({
+      error: (e) => console.error(e)
+    });
+  }
+
+
+  //----------STUDENT METHODS----------
+  deleteCourseInStudent(id : string | undefined) {
+    this.courseService.deleteCourseInStudent(id).subscribe({
+      error: (e) => console.error(e)
+    });
   }
 }
