@@ -1,67 +1,43 @@
 <header class="header-area header-sticky background-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <nav class="main-nav">
-          <!-- ***** Logo Start ***** -->
-          <a [routerLink]="'/news'" data-section="news" class="logo">
-            <img
-              src="/images/university-logo.png"
-              alt="University Logo"
-              style="height: 50px"
-            />
-          </a>
-          <!-- ***** Logo End ***** -->
-          <!-- ***** Menu Start ***** -->
-          <ul class="nav" id="header">
-            <li class="scroll-to-section">
-              <a [routerLink]="'/news'" data-section="view/news">Noticias</a>
-            </li>
-            <li class="scroll-to-section">
-              <a [routerLink]="'/advisement'" data-section="view/advisement"
-                >Consultas de Cursos</a
-              >
-            </li>
-            <li class="scroll-to-section">
-              <a [routerLink]="'/applications'" data-section="view/applications"
-                >Solicitudes</a
-              >
-            </li>
-            <li class="scroll-to-section">
-              <a
-                [routerLink]="'/registerProfessor'"
-                data-section="view/professors"
-                >Profesores</a
-              >
-            </li>
-            <li class="scroll-to-section">
-              <a [routerLink]="'/courses'" data-section="view/courses"
-                >Cursos</a
-              >
-            </li>
-            <li class="scroll-to-section">
-              <a [routerLink]="'/profile'" data-section="view/profile">
-                <img [src]="" id="p-picture-header" />
-              </a>
-            </li>
-            <li class="scroll-to-section">
-              <a href="javascript:void(0);">
-                <img
-                  src="/images/door-check-out-icon.png"
-                  id="p-picture-header"
-                  style="border-radius: 0; height: 30px; width: 30px"
-                />
-              </a>
-            </li>
-          </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a [routerLink]="'/news'" class="logo">
+                        <img src="/images/university-logo.png" alt="University Logo" style="height: 50px;" />
+                    </a>
+                    <!-- ***** Logo End ***** -->
 
-          <a class="menu-trigger">
-            <span>Menu</span>
-          </a>
+                    <!-- ***** Menú para usuarios autenticados ***** -->
+                    <ul class="nav" *ngIf="isLoggedIn">
+                        <li><a [routerLink]="'/news'">Noticias</a></li>
+                        <li><a [routerLink]="'/advisement'">Consultas de Cursos</a></li>
+                        <li><a [routerLink]="'/applications'">Solicitudes</a></li>
+                        <li><a [routerLink]="'/registerProfessor'">Profesores</a></li>
+                        <li><a [routerLink]="'/courses'">Cursos</a></li>
+                        <li>
+                            <a [routerLink]="'/profile'">
+                                <img [src]="userImage" id="p-picture-header">
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="logout()">
+                                <img src="/images/door-check-out-icon.png" id="p-picture-header" style="border-radius:0; height:30px; width:30px;">
+                            </a>
+                        </li>
+                    </ul>
 
-          <!-- ***** Menu End ***** -->
-        </nav>
-      </div>
+                    <!-- ***** Menú para usuarios NOp autenticados ***** -->
+                    <ul class="nav" *ngIf="!isLoggedIn">
+                        <li><a [routerLink]="'/login'">Iniciar sesión</a></li>
+                    </ul>
+
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
 </header>

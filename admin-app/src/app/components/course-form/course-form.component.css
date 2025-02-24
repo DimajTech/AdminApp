@@ -1,0 +1,135 @@
+.form-container {
+  max-width: 500px;
+  width: 90%; /* Se ajusta en pantallas pequeñas */
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #66c5e3;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  color: white;
+  font-weight: 300;
+}
+
+select option {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #000;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+/* Flexbox para los botones */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  justify-content: center; /* Centrar en pantallas pequeñas */
+}
+
+button {
+  flex: 1; /* Ocupar el mismo espacio */
+  min-width: 120px; /* Tamaño mínimo para que no se vuelvan muy pequeños */
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  text-align: center;
+  font-size: 14px;
+  border: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.03);
+}
+
+.edit-button {
+  background-color: #ffffff;
+  color: #66c5e3;
+}
+
+.edit-button:hover {
+  background-color: #e0f2fe;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #dc2626;
+}
+
+/* 🖥 Media Queries para Responsividad */
+
+/* Pantallas menores a 768px (tablets y móviles) */
+@media (max-width: 768px) {
+  .form-container {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%; /* Botones ocupan todo el ancho en móviles */
+  }
+}
+
+/* Pantallas menores a 480px (móviles pequeños) */
+@media (max-width: 480px) {
+  input, select, textarea {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .form-container {
+    padding: 1rem;
+  }
+}

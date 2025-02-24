@@ -3,12 +3,15 @@ import { NewsService } from '../../services/news.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 
+declare let toastr: any;
+
 @Component({
   selector: 'app-news',
   imports: [NgIf, CommonModule, RouterLink],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css'
 })
+
 export class NewsComponent {
 
     constructor(private service: NewsService, private router: Router) { }
@@ -24,12 +27,14 @@ export class NewsComponent {
         next: (news: any) => {
           this.news = news;
 
-          console.log(news)
         },
         error: (err: any) => {
 
           //Usar Toast
           console.error(err);
+
+          toastr.options.positionClass = 'toast-bottom-right';
+          toastr.error('Ha ocurrido un error cargando las noticias');
         }
       });
     }

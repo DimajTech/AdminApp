@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NewsService } from '../../services/news.service';
 import { NgFor, NgIf } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { FormsModule } from '@angular/forms';
 
+declare let toastr: any; // Declaramos toastr para que TypeScript no se queje
+
 @Component({
   selector: 'app-news-details',
   imports: [RouterLink, NgIf, NgFor, FormsModule],
+  standalone: true,
   templateUrl: './news-details.component.html',
   styleUrl: './news-details.component.css'
 })
+
+
 export class NewsDetailsComponent {
 
-  
+
   constructor(private service: NewsService, private route: ActivatedRoute, private router: Router) { }
   id: string | null = null
 
@@ -26,7 +31,9 @@ export class NewsDetailsComponent {
 
   //Add comments
   commentText = ""
+  commentTextIsEmpty = false;
   commentResponseText = "";
+  commentResponseTextIsEmpty = false;
 
   ngOnInit(): void {
     
@@ -47,6 +54,8 @@ export class NewsDetailsComponent {
       error: (err: any) => {
 
         //Usar Toast
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.error('Ha ocurrido un error cargando la noticia o ha sido borrada');
         console.error(err);
       }
     });
@@ -54,47 +63,75 @@ export class NewsDetailsComponent {
 
   submitCommentNews(): void {
 
-    const newsCommentData = {
-      id:  uuidv4(),
-      pieceOfNewsId: this.id,
-      authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
-      text: this.commentText
-    };
+    toastr.options.positionClass = 'toast-bottom-right';
 
-    this.service.addNewsComment(newsCommentData).subscribe({
-      next: () => {
-        //alert('Comentario agregad con éxito');
+    if (this.commentText && this.commentText.trim() !== '') {
 
-        this.loadNewsComments(this.id ? this.id : "");
+      const newsCommentData = {
+        id:  uuidv4(),
+        pieceOfNewsId: this.id,
+        authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
+        text: this.commentText
+      };
+  
+      this.service.addNewsComment(newsCommentData).subscribe({
+        next: () => {
+  
+          toastr.success('Comentario agregado correctamente');
+          this.commentTextIsEmpty = false;
 
-      },
-      error: (err) => {
-        console.error('Error al agregar noticia', err);
-      }
-    });
+          this.loadNewsComments(this.id ? this.id : "");
+  
+        },
+        error: (err) => {
+  
+          toastr.error('Ha ocurrido un error al agregar el comentario, intente de nuevo más tarde.');    
+        }
+      });
+  
+      this.commentText = ""
+    } else{
+
+      toastr.error('Por favor rellene todos los campos.');      
+      this.commentTextIsEmpty = true;
+    }
+    
   }
 
   submitCommentRespose(comment: any) {
 
-    const newsCommentResponseData = {
-      id:  uuidv4(),
-      commentNewsId: comment.id,
-      authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
-      text: this.commentResponseText
-    };
+    if (this.commentResponseText && this.commentResponseText.trim() !== '') {
+      const newsCommentResponseData = {
+        id:  uuidv4(),
+        commentNewsId: comment.id,
+        authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
+        text: this.commentResponseText
+      };
+  
+      this.service.addNewsCommentResponse(newsCommentResponseData).subscribe({
+        next: () => {
+          //alert('Comentario agregad con éxito');
+          toastr.options.positionClass = 'toast-bottom-right';
+          toastr.success('Respuesta agregada correctamente');
+  
+          this.commentResponseTextIsEmpty = false;
 
-    this.service.addNewsCommentResponse(newsCommentResponseData).subscribe({
-      next: () => {
-        //alert('Comentario agregad con éxito');
-        
-        this.loadNewsCommentsResponse(comment, false);
-        this.totalComments++;
-
-      },
-      error: (err) => {
-        console.error('Error al agregar noticia', err);
-      }
-    });   
+          this.loadNewsCommentsResponse(comment, false);
+          this.totalComments++;
+  
+        },
+        error: (err) => {
+  
+          toastr.options.positionClass = 'toast-bottom-right';
+          toastr.error('Ha ocurrido un error al agregar la respuesta, intente de nuevo más tarde.');      }
+      });   
+      this.commentResponseText = "";
+    }else{
+      
+      toastr.error('Por favor rellene todos los campos.');      
+      this.commentResponseTextIsEmpty = true;
+    }
+   
    }
     
   loadNewsComments(id:string): void {
@@ -112,6 +149,9 @@ export class NewsDetailsComponent {
       error: (err: any) => {
 
         //Usar Toast
+        
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.error('Ha ocurrido un error al cargar los comentarios, intente de nuevo más tarde.');
         console.error(err);
       }
     });
@@ -149,8 +189,4 @@ export class NewsDetailsComponent {
   
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}, ${hours}:${minutes}:${seconds} ${ampm}`;
   }
-  
-  
-  
-  
 }

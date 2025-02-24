@@ -379,4 +379,20 @@ Header Style
     }
     
   }
-  
+  #p-picture-header {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    margin:0;
+    padding:0,
+}
+
+#p-picture-header {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    #p-picture-header:hover {
+        transform: scale(1.1);
+    }

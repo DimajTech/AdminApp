@@ -1,0 +1,21 @@
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.btn-delete{
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #a62828;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
