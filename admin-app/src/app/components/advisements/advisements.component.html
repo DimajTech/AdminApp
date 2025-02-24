@@ -1,0 +1,49 @@
+<section class="section-advisements" id="advisements">
+    <div class="container">
+        <h2>Mis consultas</h2>
+
+        <div class="table-responsive-general">
+            <table class="w3-table-all-general">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Estudiante</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let advisement of privateAdvisements">
+                        <td>{{ advisement.courseName }}</td>
+                        <td>{{ advisement.studentName }}</td>
+                        <td>
+                            <button class="general-button" (click)="viewDetails(advisement)">Ver Detalle</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br /><br /><br />
+        <h2>Todas las consultas</h2>
+        <div class="table-responsive-general">
+            <table class="w3-table-all-general">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Estudiante</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let advisement of publicAdvisements">
+                        <td>{{ advisement.courseName }}</td>
+                        <td>{{ advisement.studentName }}</td>
+                        <td>
+                            <button class="general-button" (click)="viewDetails(advisement)">Ver Detalle</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
