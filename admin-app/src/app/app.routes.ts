@@ -5,11 +5,13 @@ import { CourseFormComponent } from './components/course-form/course-form.compon
 import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news-details/news-details.component';
 import { CreateNewsComponent } from './components/create-news/create-news.component';
+import { RegisterProfessorComponent } from './components/register-professor/register-professor.component';
 
 import { authGuard } from './auth.guard';
 import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
+
     { path: 'applications', component: RegistrationApplicationsComponent, canActivate: [authGuard] },
     { path: 'news/:id', component: NewsDetailsComponent, canActivate: [authGuard]},
     { path: 'news', component: NewsComponent, canActivate: [authGuard] },
@@ -17,6 +19,7 @@ export const routes: Routes = [
     { path: 'courses', component: CourseListComponent, canActivate: [authGuard] },
     { path: 'course-form/:id', component: CourseFormComponent, canActivate: [authGuard] },
     { path: 'course-form', component: CourseFormComponent, canActivate: [authGuard] },
+    { path: 'registerProfessor', component: RegisterProfessorComponent }, //todo canActivate
     { path: 'login', component: LoginComponent },
     { path: '', component: NewsComponent, canActivate: [authGuard]}
 ];

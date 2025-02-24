@@ -1,0 +1,151 @@
+<div class="register-admin section" id="register-admin">
+  <div class="container">
+    <div class="row">
+      <!-- Parte informativa estilizada como un espacio de trabajo -->
+      <div class="col-lg-6 align-self-center">
+        <div class="section-heading p-5 border rounded bg-light shadow-lg">
+          <h6 class="text-muted mb-3">¡Bienvenido al Panel Administrativo!</h6>
+          <h2 class="text-dark mb-4">Registrar Nuevo Profesor</h2>
+          <p class="text-muted">
+            Como administrador, puedes gestionar los usuarios de la plataforma.
+            Agrega un nuevo profesor completando el formulario.
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulario de registro -->
+      <div class="col-lg-6">
+        <div
+          class="register-form-content p-5 border rounded bg-white shadow-lg"
+        >
+          <form
+            (ngSubmit)="submitProfessor(professorForm)"
+            #professorForm="ngForm"
+          >
+            <div class="row">
+              <!-- Nombre Completo -->
+              <div class="col-lg-12 mb-4">
+                <fieldset>
+                  <label for="r-name" class="form-label">Nombre Completo</label>
+                  <input
+                    type="text"
+                    id="r-name"
+                    class="form-control"
+                    placeholder="Nombre completo..."
+                    required
+                    [(ngModel)]="name"
+                    name="name"
+                    #nameField="ngModel"
+                  />
+                  <div
+                    *ngIf="nameField.invalid && nameField.touched"
+                    class="text-danger"
+                  >
+                    Este campo es obligatorio.
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Correo Electrónico -->
+              <div class="col-lg-12 mb-4">
+                <fieldset>
+                  <label for="r-email" class="form-label"
+                    >Correo Electrónico</label
+                  >
+                  <input
+                    type="email"
+                    id="r-email"
+                    class="form-control"
+                    placeholder="Correo electrónico..."
+                    required
+                    [(ngModel)]="email"
+                    name="email"
+                    #emailField="ngModel"
+                  />
+                  <div
+                    *ngIf="emailField.invalid && emailField.touched"
+                    class="text-danger"
+                  >
+                    Introduzca un correo válido.
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="col-lg-12 mb-4">
+                <fieldset>
+                  <label for="r-password" class="form-label"
+                    >Contraseña Temporal</label
+                  >
+                  <input
+                    type="password"
+                    id="r-password"
+                    class="form-control"
+                    placeholder="Contraseña temporal..."
+                    required
+                    [(ngModel)]="password"
+                    name="password"
+                    #passwordField="ngModel"
+                  />
+                  <div
+                    *ngIf="passwordField.invalid && passwordField.touched"
+                    class="text-danger"
+                  >
+                    Este campo es obligatorio.
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Confirmar Contraseña -->
+              <div class="col-lg-12 mb-4">
+                <fieldset>
+                  <label for="r-password-confirm" class="form-label"
+                    >Confirmar Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    id="r-password-confirm"
+                    class="form-control"
+                    placeholder="Confirma la contraseña..."
+                    required
+                    [(ngModel)]="confirmPassword"
+                    name="confirmPassword"
+                    #confirmPasswordField="ngModel"
+                  />
+                  <div
+                    *ngIf="
+                      confirmPassword !== password &&
+                      confirmPasswordField.touched
+                    "
+                    class="text-danger"
+                  >
+                    Las contraseñas deben coincidir.
+                  </div>
+                </fieldset>
+              </div>
+              <!--Botones Forms-->
+              <div class="col-lg-12 mt-4">
+                <fieldset class="d-flex justify-content-between">
+                  <button
+                    type="submit"
+                    class="general-button-green"
+                    [disabled]="professorForm.invalid"
+                  >
+                    Registrar Profesor
+                  </button>
+                  <button
+                    type="button"
+                    class="general-button-red"
+                    (click)="resetForm(professorForm)"
+                  >
+                    Cancelar
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
