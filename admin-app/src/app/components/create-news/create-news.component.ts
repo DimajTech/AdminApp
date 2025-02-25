@@ -10,10 +10,10 @@ declare let toastr: any; // Declaramos toastr para que TypeScript no se queje
   imports: [RouterLink, FormsModule],
   templateUrl: './create-news.component.html',
   standalone: true,
-  styleUrls: ['./create-news.component.css']
+  styleUrls: ['./create-news.component.css'],
 })
 export class CreateNewsComponent {
-  previewImage: string = '/images/istockphoto-1128826884-612x612.jpg'; 
+  previewImage: string = '/images/istockphoto-1128826884-612x612.jpg';
   fileName: string = 'Sin archivos seleccionados';
   title: string = '';
   description: string = '';
@@ -24,31 +24,30 @@ export class CreateNewsComponent {
   constructor(private service: NewsService, private router: Router) { }
   
   ngOnInit(): void {
-    
 
     this.userId = window.localStorage.getItem("userId");
     this.userRole = window.localStorage.getItem("role");
   }
+
   previewSelectedImage(event: Event): void {
     const input = event.target as HTMLInputElement;
-    
+
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      this.fileName = file.name; 
+      this.fileName = file.name;
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewImage = reader.result as string; 
+        this.previewImage = reader.result as string;
       };
 
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   }
 
   submitNews(): void {
-
     const newsData = {
-      id:  uuidv4(),
+      id: uuidv4(),
       title: this.title,
       description: this.description,
       authorId: this.userId,
@@ -63,12 +62,13 @@ export class CreateNewsComponent {
         this.router.navigate(['/news']);
       },
       error: (err) => {
-
         toastr.options.positionClass = 'toast-bottom-right';
-        toastr.error('Ha ocurrido un error agregando la noticia. Intente de nuevo más tarde');
-        
+        toastr.error(
+          'Ha ocurrido un error agregando la noticia. Intente de nuevo más tarde'
+        );
+
         console.error('Error al agregar noticia', err);
-      }
+      },
     });
   }
 }

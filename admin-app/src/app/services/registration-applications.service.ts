@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 const ADMIN_API_URL = 'http://localhost:8080/api/'
 const PROFESSOR_API_URL = 'https://localhost:7039/api/'
-const STUDENT_API_URL = 'https://localhost:7047/'
+const STUDENT_URL = 'https://localhost:7047/'
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -41,7 +41,7 @@ export class RegistrationApplicationsService {
       })
     );
 
-    const resultStudent = this.http.patch<any>(STUDENT_API_URL + 'User/ChangeUserStatus/' + id, body, HTTP_OPTIONS).pipe(
+    const resultStudent = this.http.patch<any>(STUDENT_URL + 'User/ChangeUserStatus/' + id, body, HTTP_OPTIONS).pipe(
       catchError((error) => {
         console.error('Error en cambio de estado de usuario (estudiante):', error);
         return of({ success: false, message: 'Error en profesor' });
