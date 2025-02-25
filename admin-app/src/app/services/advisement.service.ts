@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Advisement } from '../models/advisement.model';
 
-const ADMIN_API_URL = 'http://localhost:8080/api/';
+const ADMIN_API_URL = 'https://administratorapi-b4eqd2exgxdwekfy.mexicocentral-01.azurewebsites.net/api/';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({

@@ -44,8 +44,8 @@ export class CourseListComponent implements OnInit {
         try{
           this.courseService.deleteCourse(course.id!).subscribe({
             next: () => {
-              this.deleteCourseInProfessor(course.id);
-              this.deleteCourseInStudent(course.id);
+              //this.deleteCourseInProfessor(course.id);
+              //this.deleteCourseInStudent(course.id);
               Swal.fire('Eliminado', 'El curso ha sido eliminado exitosamente.', 'success');
               this.loadCourses();
             },

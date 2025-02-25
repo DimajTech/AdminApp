@@ -36,11 +36,12 @@ export class RegisterProfessorComponent {
     }
 
     const professorData = {
-      id: uuidv4(),
+      id: uuidv4()+"",
       name: this.name,
       email: this.email,
       password: this.password,
       role: 'professor',
+      isActive: true,
     };
 
     this.service.registerProfessor(professorData).subscribe({
