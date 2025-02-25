@@ -17,10 +17,17 @@ export class CreateNewsComponent {
   fileName: string = 'Sin archivos seleccionados';
   title: string = '';
   description: string = '';
-  authorId: string = 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0'; //TODO obtener usuario loggeado
+  userId: string | null = '';
+  userRole: string | null = '';
   picture: any = null;
 
-  constructor(private service: NewsService, private router: Router) {}
+  constructor(private service: NewsService, private router: Router) { }
+  
+  ngOnInit(): void {
+
+    this.userId = window.localStorage.getItem("userId");
+    this.userRole = window.localStorage.getItem("role");
+  }
 
   previewSelectedImage(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -43,7 +50,7 @@ export class CreateNewsComponent {
       id: uuidv4(),
       title: this.title,
       description: this.description,
-      authorId: this.authorId,
+      authorId: this.userId,
       picture: this.previewImage ? this.previewImage : null,
     };
 

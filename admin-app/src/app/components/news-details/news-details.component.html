@@ -10,6 +10,21 @@
     <p id="description-news-detail" style="text-align:justify; border-radius: 33px; padding-top:20px; padding-bottom:20px; white-space: pre-line;">
         {{news.description}}
     </p>
+
+    <div style="border: 1px solid #dc3545; border-radius: 13px;">
+        <br>
+        <h4 style="color: #dc3545;">Zona de peligro</h4>
+        <br>
+
+        <button class="add-response-btn" style="background-color: #dc3545; color: white;  margin-right: 10px;" (click)="deletePieceOfNews()">
+            Eliminar Noticia
+            <img src="/images/exclamation-warning-triangle-icon.png" alt="" style="width: 20px;height: 20px;margin-left: 10px;">
+       </button>
+       <br>
+       <br>
+
+    </div>
+    <br>
     <!--COMENTARIOS-->
     <div id="commentsContainer">
 
@@ -53,9 +68,17 @@
                         <img src="/images/comment-box-icon.png" alt="" style="width: 20px;height: 20px;margin-left: 10px;margin-top:5px;">
                     </div>
         
-                    <button class="add-response-btn" (click)="toggleResponseForm(comment)">
-                         {{ comment.showResponseForm ? 'Cancelar' : 'Responder' }}
-                    </button>
+                    <div style="align-content: center;">
+                        <button class="add-response-btn" style="background-color: #dc3545; color: white;  margin-right: 10px;" (click)="deleteComment(comment)">
+                            Eliminar comentario
+                            <img src="/images/recycle-bin-icon.png" alt="" style="width: 20px;height: 20px;margin-left: 10px;">
+
+                       </button>
+                        <button class="add-response-btn" (click)="toggleResponseForm(comment)">
+                            {{ comment.showResponseForm ? 'Cancelar' : 'Responder' }}
+                       </button>
+                    </div>
+
                 </div>
     
                 <div class="comment-add-container"  style="display:block;" *ngIf="comment.showResponseForm">
@@ -82,8 +105,19 @@
                         </div>
                         <span class="comment-date">{{ formatDate(response.date) }}</span>
                     </div>
+
+
                     <div class="comment-body">
                         <p>{{response.text}}</p>
+                    </div>
+
+                    <div class="comment-footer" style="justify-content: right;">
+    
+                        <button class="add-response-btn" style="background-color: #dc3545; color: white;  margin-right: 10px; align-self: flex-end;" (click)="deleteResponse(response)">
+                            Eliminar respuesta
+                            <img src="/images/recycle-bin-icon.png" alt="" style="width: 20px;height: 20px;margin-left: 10px;">
+                       </button>
+    
                     </div>
                 </div>
             </div>

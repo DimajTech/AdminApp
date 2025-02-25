@@ -4,6 +4,7 @@ import { NewsService } from '../../services/news.service';
 import { NgFor, NgIf } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 declare let toastr: any; // Declaramos toastr para que TypeScript no se queje
 
@@ -35,6 +36,8 @@ export class NewsDetailsComponent {
   commentResponseText = "";
   commentResponseTextIsEmpty = false;
 
+  userId: string | null =''
+
   ngOnInit(): void {
     
     this.id = this.route.snapshot.paramMap.get('id');
@@ -44,8 +47,101 @@ export class NewsDetailsComponent {
       this.loadNewsComments(this.id)
 
     }
+
+     this.userId = window.localStorage.getItem("userId");
   }
 
+  deletePieceOfNews() {
+
+    toastr.options.positionClass = 'toast-bottom-right';
+
+    Swal.fire({
+         title: 'Eliminar Noticia',
+         text: 'Estás a punto de eliminar la noticia publicada por '+this.news.authorName+ ' con '+
+         'título: "'+ this.news.title + '"'+
+         '. Esta acción es irreversible.',
+         showCancelButton: true,
+         confirmButtonText: 'Continuar',
+         cancelButtonText: 'Cancelar'
+       }).then(async (result: any) => {
+         if (result.isConfirmed) {
+
+           this.service.deletePieceOfNewsById(this.news.id).subscribe({
+             next: () => {
+       
+               toastr.success('Noticia eliminada correctamente');
+               this.router.navigate(['/']);
+             },
+             error: (err) => {
+       
+               toastr.error('Ha ocurrido un error al eliminar la noticia, intente de nuevo más tarde.');  
+               console.log(err)  
+             }
+           });
+         }
+       });
+
+ }
+  deleteComment(comment: any) {
+
+     toastr.options.positionClass = 'toast-bottom-right';
+
+     Swal.fire({
+          title: 'Eliminar comentario',
+          text: 'Estás a punto de eliminar el comentario de '+comment.name+'. Esta acción es irreversible.',
+          showCancelButton: true,
+          confirmButtonText: 'Continuar',
+          cancelButtonText: 'Cancelar'
+        }).then(async (result: any) => {
+          if (result.isConfirmed) {
+
+            this.service.deleteCommentNewsById(comment.id).subscribe({
+              next: () => {
+        
+                toastr.success('Comentario eliminado correctamente');
+    
+                this.loadNewsComments(this.id ? this.id : "");
+        
+              },
+              error: (err) => {
+        
+                toastr.error('Ha ocurrido un error al eliminar el comentario, intente de nuevo más tarde.');    
+              }
+            });
+          }
+        });
+
+  }
+  deleteResponse(response: any) {
+
+    toastr.options.positionClass = 'toast-bottom-right';
+
+    Swal.fire({
+         title: 'Eliminar respuesta',
+         text: 'Estás a punto de eliminar la respuesta de '+response.name+'. Esta acción es irreversible.',
+         showCancelButton: true,
+         confirmButtonText: 'Continuar',
+         cancelButtonText: 'Cancelar'
+       }).then(async (result: any) => {
+         if (result.isConfirmed) {
+
+           this.service.deleteCommentNewsResponseById(response.id).subscribe({
+             next: () => {
+       
+               toastr.success('Respuesta eliminada correctamente');
+   
+               this.loadNewsComments(this.id ? this.id : "");
+       
+             },
+             error: (err) => {
+       
+               toastr.error('Ha ocurrido un error al eliminar la respuesta, intente de nuevo más tarde.');    
+             }
+           });
+         }
+       });
+
+ }
   loadNewsDetails(id: string): void {
     this.service.getNewsDetailsById(id).subscribe({
       next: (news: any) => {
@@ -70,7 +166,7 @@ export class NewsDetailsComponent {
       const newsCommentData = {
         id:  uuidv4(),
         pieceOfNewsId: this.id,
-        authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
+        authorId: this.userId, 
         text: this.commentText
       };
   
@@ -100,18 +196,19 @@ export class NewsDetailsComponent {
 
   submitCommentRespose(comment: any) {
 
+    toastr.options.positionClass = 'toast-bottom-right';
+
     if (this.commentResponseText && this.commentResponseText.trim() !== '') {
       const newsCommentResponseData = {
         id:  uuidv4(),
         commentNewsId: comment.id,
-        authorId: 'c04f0388-19ff-4fc6-8c8d-8de0262ce6e0', //TODO: CAMBIAR 
+        authorId: this.userId, 
         text: this.commentResponseText
       };
   
       this.service.addNewsCommentResponse(newsCommentResponseData).subscribe({
         next: () => {
           //alert('Comentario agregad con éxito');
-          toastr.options.positionClass = 'toast-bottom-right';
           toastr.success('Respuesta agregada correctamente');
   
           this.commentResponseTextIsEmpty = false;
@@ -122,7 +219,6 @@ export class NewsDetailsComponent {
         },
         error: (err) => {
   
-          toastr.options.positionClass = 'toast-bottom-right';
           toastr.error('Ha ocurrido un error al agregar la respuesta, intente de nuevo más tarde.');      }
       });   
       this.commentResponseText = "";
