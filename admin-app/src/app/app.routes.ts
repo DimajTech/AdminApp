@@ -17,19 +17,8 @@ export const routes: Routes = [
     { path: 'news', component: NewsComponent, canActivate: [authGuard] },
     { path: 'createNews', component: CreateNewsComponent, canActivate: [authGuard] },
     { path: 'courses', component: CourseListComponent, canActivate: [authGuard] },
-    { 
-        path: 'news/:id', 
-        component: NewsDetailsComponent, 
-        canActivate: [authGuard], 
-        data: { skipPrerender: true } 
-      }, 
-      { 
-        path: 'course-form/:id', 
-        component: CourseFormComponent, 
-        canActivate: [authGuard], 
-        data: { skipPrerender: true }
-      },
-      
+    { path: 'news/:id', component: NewsDetailsComponent, canActivate: [authGuard]},
+    { path: 'course-form/:id', component: CourseFormComponent, canActivate: [authGuard]}, 
     { path: 'course-form', component: CourseFormComponent, canActivate: [authGuard] },
     { path: 'registerProfessor', component: RegisterProfessorComponent }, //todo canActivate
     { path: 'advisements', component: AdvisementsComponent, canActivate: [authGuard] }, 
