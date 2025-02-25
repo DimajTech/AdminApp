@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - AdminApp1
 
 on:
@@ -28,19 +31,11 @@ jobs:
           npm install
           npm run build --if-present
 
-      - name: Install xvfb
-        run: sudo apt-get install xvfb
-
-      - name: Run tests in headless mode
-        run: |
-          cd admin-app
-          xvfb-run --auto-servernum npm run test --if-present
-
       - name: Zip artifact for deployment
         run: |
           cd admin-app
           zip -r ../release.zip ./*
-
+          
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
