@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # This is required for actions/checkout
+      contents: read #This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -22,20 +22,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-          cache: 'npm'
-          cache-dependency-path: admin-app/package-lock.json
 
-      - name: npm install and build
+      - name: npm install, build, and test
         run: |
-          cd admin-app
           npm install
           npm run build --if-present
+          npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: |
-          cd admin-app
-          zip -r ../release.zip ./*
-          
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -49,8 +45,8 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
 
     steps:
       - name: Download artifact from build job
@@ -64,9 +60,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_07076454E1AF4A8A9F7102F50D0BD8EE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_07B33D122F774322B6A7893D7B4E0215 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DFE9DCC066AD4DD3BE406608E7611BFA }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7613ECB8D55741AC87884705FE0EDDB9 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_955B4D79B31C4A6A9A17CF6317E81DC3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0852C1CBFBDE49C3966AC3B5F480038E }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -75,3 +71,4 @@ jobs:
           app-name: 'AdminApp1'
           slot-name: 'Production'
           package: .
+          
