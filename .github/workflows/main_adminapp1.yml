@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - AdminApp1
 
 on:
@@ -25,12 +22,19 @@ jobs:
           cache: 'npm'
           cache-dependency-path: admin-app/package-lock.json
 
-      - name: npm install, build, and test
+      - name: npm install and build
         run: |
           cd admin-app
           npm install
           npm run build --if-present
-          npm run test --if-present
+
+      - name: Install xvfb
+        run: sudo apt-get install xvfb
+
+      - name: Run tests in headless mode
+        run: |
+          cd admin-app
+          xvfb-run --auto-servernum npm run test --if-present
 
       - name: Zip artifact for deployment
         run: |
